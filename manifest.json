@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "easy-scrap-chrome-ext",
+  "version": "1.0",
+  "description": "Tracks your last 5 copied items",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon64.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/icon16.png",
+      "64": "images/icon64.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
