@@ -35,6 +35,32 @@ document.addEventListener('DOMContentLoaded', async function() {
             text.className = 'text';
             text.textContent = item.text;
 
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = 'Copy';
+            copyBtn.title = 'Copy text';
+            copyBtn.style.display = 'flex';
+            copyBtn.onclick = async () => {
+                try {
+                    await navigator.clipboard.writeText(item.text);
+                    const originalText = copyBtn.textContent;
+                    copyBtn.textContent = 'Copied!';
+                    copyBtn.style.background = '#218838';
+                    setTimeout(() => {
+                        copyBtn.textContent = originalText;
+                        copyBtn.style.background = '';
+                    }, 1500);
+                } catch (error) {
+                    console.error('Error copying text:', error);
+                    copyBtn.textContent = 'Error';
+                    copyBtn.style.background = '#dc3545';
+                    setTimeout(() => {
+                        copyBtn.textContent = 'Copy';
+                        copyBtn.style.background = '';
+                    }, 1500);
+                }
+            };
+
             const clearBtn = document.createElement('button');
             clearBtn.className = 'clear-btn';
             clearBtn.innerHTML = '&times;';
@@ -62,6 +88,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             itemHeader.appendChild(timestamp);
             itemDiv.appendChild(itemHeader);
             itemDiv.appendChild(text);
+            itemDiv.appendChild(copyBtn);
             itemDiv.appendChild(clearBtn);
             copyHistoryDiv.appendChild(itemDiv);
         });
